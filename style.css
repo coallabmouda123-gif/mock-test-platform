@@ -1,0 +1,22 @@
+:root {
+  /* Primary Colors */
+  --color-primary: #0f172a; /* Deep Navy for headers/buttons */
+  --color-background: #f8fafc; /* Soft off-white to reduce eye strain */
+  --color-text-main: #1e293b; /* Crisp dark gray for readability */
+  
+  /* Accent Colors */
+  --color-success: #10b981; /* Green for correct answers */
+  --color-error: #ef4444; /* Red for incorrect answers */
+  --color-card-bg: #ffffff; /* Pure white for question cards */
+  
+  /* Typography */
+  --font-main: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-main);
+  font-family: var(--font-main);
+  margin: 0;
+  padding: 0;
+}
