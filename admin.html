@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bulk Question Uploader</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- PapaParse reads CSV files directly in the browser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
+<body style="padding: 2rem; max-width: 600px; margin: 0 auto;">
+    <h2>Bulk Upload MCQs</h2>
+    <p>Select your formatted CSV file to push questions to Firestore.</p>
+    
+    <input type="file" id="csv-file" accept=".csv" style="margin: 20px 0; display: block;">
+    <button id="upload-btn" class="primary-btn">Upload to Database</button>
+    
+    <div id="status" style="margin-top: 20px; font-weight: bold; color: var(--color-primary);"></div>
+
+    <script type="module">
+        // 1. Import Firebase securely via standard browser CDN
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+
+        // 2. PASTE YOUR FIREBASE CONFIG HERE (from Day 7)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 3. Handle the File Upload
+        document.getElementById('upload-btn').addEventListener('click', () => {
+            const file = document.getElementById('csv-file').files[0];
+            const statusDiv = document.getElementById('status');
+            
+            if (!file) {
+                statusDiv.innerText = "Please select a CSV file first.";
+                return;
+            }
+
+            statusDiv.innerText = "Reading file...";
+
+            Papa.parse(file, {
+                header: true, // Uses your first row as the database field names
+                skipEmptyLines: true,
+                complete: async function(results) {
+                    const questions = results.data;
+                    statusDiv.innerText = `Found ${questions.length} questions. Uploading...`;
+                    
+                    let successCount = 0;
+                    
+                    // Loop through each row in the Excel/CSV file and push to Firebase
+                    for (const row of questions) {
+                        try {
+                            await addDoc(collection(db, "questions"), row);
+                            successCount++;
+                            statusDiv.innerText = `Uploaded: ${successCount} / ${questions.length}`;
+                        } catch (error) {
+                            console.error("Error uploading row:", error);
+                        }
+                    }
+                    
+                    statusDiv.innerText = `Upload Complete! Successfully added ${successCount} questions.`;
+                    statusDiv.style.color = "var(--color-success)";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
