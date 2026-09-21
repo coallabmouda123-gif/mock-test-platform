@@ -1,10 +1,8 @@
-npm install firebase
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// 1. Import Firebase using web links (CDN) instead of npm
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-// Your web app's Firebase configuration
+// 2. Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAsBwab5_hc0pM9qCLTw7jZu4K6fSl_5xw",
   authDomain: "examprep-platform-219c3.firebaseapp.com",
@@ -14,5 +12,8 @@ const firebaseConfig = {
   appId: "1:376405485969:web:3eff3371d47852ed869230"
 };
 
-// Initialize Firebase
+// 3. Initialize Firebase and the Database
 const app = initializeApp(firebaseConfig);
+
+// 4. Export the database so the rest of your app can use it
+export const db = getFirestore(app);
