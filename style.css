@@ -20,3 +20,138 @@ body {
   margin: 0;
   padding: 0;
 }
+/* Base Resets */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1, h2, h3, h4, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-primary);
+    color: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+}
+
+.navbar nav a {
+    color: white;
+    margin-left: 1.5rem;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.navbar nav a:hover {
+    opacity: 0.8;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 5rem 2rem;
+    background-color: var(--color-background);
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: var(--color-text-main);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Grid & Exam Cards */
+.category-section {
+    padding: 3rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.category-section h3 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 2.5rem;
+    color: var(--color-primary);
+}
+
+.grid-container {
+    display: grid;
+    /* Automatically creates responsive columns based on screen size */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: var(--color-primary);
+}
+
+.subject-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
+}
+
+.card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* Ad Placement Placeholder */
+.ad-container {
+    background-color: #e2e8f0;
+    width: 100%;
+    max-width: 728px;
+    height: 90px;
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #94a3b8;
+    color: #64748b;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
