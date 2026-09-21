@@ -17,25 +17,24 @@
     <div id="status" style="margin-top: 20px; font-weight: bold; color: var(--color-primary);"></div>
 
     <script type="module">
-        // 1. Import Firebase securely via standard browser CDN
+        // Import Firebase securely via standard browser CDN
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-        // 2. PASTE YOUR FIREBASE CONFIG HERE (from Day 7)
+        // Your exact Firebase configuration keys
         const firebaseConfig = {
-        apiKey: "AIzaSyAsBwab5_hc0pM9qCLTw7jZu4K6fSl_5xw",
-        authDomain: "examprep-platform-219c3.firebaseapp.com",
-        projectId: "examprep-platform-219c3",
-        storageBucket: "examprep-platform-219c3.firebasestorage.app",
-        messagingSenderId: "376405485969",
-        appId: "1:376405485969:web:3eff3371d47852ed869230"
+          apiKey: "AIzaSyAsBwab5_hc0pM9qCLTw7jZu4K6fSl_5xw",
+          authDomain: "examprep-platform-219c3.firebaseapp.com",
+          projectId: "examprep-platform-219c3",
+          storageBucket: "examprep-platform-219c3.firebasestorage.app",
+          messagingSenderId: "376405485969",
+          appId: "1:376405485969:web:3eff3371d47852ed869230"
         };
-
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // 3. Handle the File Upload
+        // Handle the File Upload
         document.getElementById('upload-btn').addEventListener('click', () => {
             const file = document.getElementById('csv-file').files[0];
             const statusDiv = document.getElementById('status');
@@ -48,7 +47,7 @@
             statusDiv.innerText = "Reading file...";
 
             Papa.parse(file, {
-                header: true, // Uses your first row as the database field names
+                header: true, 
                 skipEmptyLines: true,
                 complete: async function(results) {
                     const questions = results.data;
@@ -56,7 +55,6 @@
                     
                     let successCount = 0;
                     
-                    // Loop through each row in the Excel/CSV file and push to Firebase
                     for (const row of questions) {
                         try {
                             await addDoc(collection(db, "questions"), row);
@@ -64,6 +62,7 @@
                             statusDiv.innerText = `Uploaded: ${successCount} / ${questions.length}`;
                         } catch (error) {
                             console.error("Error uploading row:", error);
+                            statusDiv.innerText = "Upload failed. Check Firebase Database Rules.";
                         }
                     }
                     
